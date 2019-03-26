@@ -2,28 +2,31 @@
     <div>
         <ul v-for="movie in movies" :key="movie.id">
             <li>
-                {{ movie.title }}
+                <app-movie-row :movie="movie"/>
             </li>
-        </ul>
+        </ul>   
     </div>
 </template>
 
 <script>
 import { moviesService } from '../services/MoviesService.js';
+import AppMovieRow from './AppMovieRow.vue';
 
 export default {
+    components: {
+        AppMovieRow
+    },
     data() {
         return {
             movies: [], 
             movie: {
-                "title": "",
-                "director": "",
-                "imageUrl": "",
-                "releaseDate": "",
-                "genre": "",
-                "duration": ""
+                title: "",
+                director: "",
+                imageUrl: "",
+                releaseDate: "",
+                genre: "",
+                duration: ""
             }
-            
         }
     },
     beforeRouteEnter (to, from, next) {
