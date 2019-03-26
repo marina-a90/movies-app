@@ -9,14 +9,12 @@ import BootstrapVue from 'bootstrap-vue'
 import Bootstrap from 'bootstrap-vue'
 
 import VueRouter from 'vue-router'
-
 import AppMovies from './components/AppMovies.vue'
 
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue);
 Vue.use(Bootstrap);
-
 Vue.use(VueRouter);
 
 const routes = [

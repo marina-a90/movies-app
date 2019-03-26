@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <navbar/>
+    <nav-bar/>
     <h1>Movies</h1>
     <router-view/>
   </div>
 </template>
 
 <script>
-import navbar from './layout/navbar.vue';
+import NavBar from './layout/NavBar.vue';
 import AppMovies from './components/AppMovies.vue';
 
 export default {
   name: 'app',
   components: {
-    navbar, 
+    NavBar, 
     AppMovies
   }
 }
