@@ -15,7 +15,8 @@
     "popper.js": "^1.14.7",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.4",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vuejs-paginate": "^2.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
