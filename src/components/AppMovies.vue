@@ -1,7 +1,12 @@
 <template>
     <div class="container">
         <app-movie-search @searchResult="searchFilter($event)"/>
-        <h5>There are currently {{ selectedMovies }} selected movies.</h5>
+        <!-- <h5>You have selected {{ selectedMovies | allMoviesSelected }} movies ({{ selectedMovies }}).</h5> -->
+        <h5 v-if="selectedMovies === this.movies.length">You have selected all the movies ({{ selectedMovies }}).</h5>
+        <h5 v-else>You have selected {{ selectedMovies }} movies.</h5>
+        <hr>
+        <button @click.prevent="selectAllMovies">Select all</button>
+        <button @click.prevent="deselectAllMovies">Deselect all</button>
         <hr>
         <div v-if="filteredMovies.length">
             <ul v-for="movie in filteredMovies" :key="movie.id">
@@ -66,6 +71,12 @@ export default {
             this.movie.Filtered = this.movies.filter(movie => movie.id === event);
             this.movie = this.movie.Filtered[0];
             this.movie.selected = true;
+        }, 
+        selectAllMovies() {
+            this.movies.map(movie => movie.selected = true);
+        }, 
+        deselectAllMovies() {
+            this.movies.map(movie => movie.selected = false);
         }
     }, 
     computed: {
@@ -78,6 +89,11 @@ export default {
         selectedMovies() {
             return this.movies.filter(movie => movie.selected === true).length;
         }
-    }
+    }, 
+    // filters: {
+    //     allMoviesSelected(values) {
+    //         return (value==this.movies.length) ? "all the" : value;
+    //     }
+    // }
 }
 </script>
