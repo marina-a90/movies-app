@@ -1,10 +1,22 @@
 <template>
     <div class="container">
         <app-movie-search @searchResult="searchFilter($event)"/>
+        <h5>There are currently {{ selectedMovies }} selected movies.</h5>
+        <hr>
         <div v-if="filteredMovies.length">
             <ul v-for="movie in filteredMovies" :key="movie.id">
-                <li>
-                    <app-movie-row :movie="movie"/>
+                <li v-if="movie.selected===true">
+                    <app-movie-row 
+                    @handleMovieSelect="selectMovie($event)" 
+                    :movie="movie"
+                    :style="{ backgroundColor: '#3CB371' }"
+                    />
+                </li>
+                <li v-else>
+                    <app-movie-row 
+                    @handleMovieSelect="selectMovie($event)" 
+                    :movie="movie"
+                    />
                 </li>
             </ul>
         </div>   
@@ -31,9 +43,10 @@ export default {
                 imageUrl: "",
                 releaseDate: "",
                 genre: "",
-                duration: ""
+                duration: "", 
+                selected: false
             }, 
-            search: ""
+            search: "", 
         }
     },
     beforeRouteEnter (to, from, next) {
@@ -48,14 +61,22 @@ export default {
         searchFilter(event) {
             this.search = event;
             this.filteredMovies;
+        }, 
+        selectMovie(event) {
+            this.movie.Filtered = this.movies.filter(movie => movie.id === event);
+            this.movie = this.movie.Filtered[0];
+            this.movie.selected = true;
         }
     }, 
     computed: {
         filteredMovies() {
             if (!this.movies.filter(movie => movie.title.match(this.search))) {
-                return undefined;
+                return;
             }
             return this.movies.filter(movie => movie.title.match(this.search));
+        }, 
+        selectedMovies() {
+            return this.movies.filter(movie => movie.selected === true).length;
         }
     }
 }
