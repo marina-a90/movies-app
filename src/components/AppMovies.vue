@@ -8,6 +8,11 @@
         <button @click.prevent="selectAllMovies">Select all</button>
         <button @click.prevent="deselectAllMovies">Deselect all</button>
         <hr>
+        <button @click.prevent="sortMoviesByName">Sort by name (ascending)</button>
+        <button @click.prevent="sortMoviesByNameDesc">Sort by name (descending)</button>
+        <button @click.prevent="sortMoviesByDuration">Sort by duration (ascending)</button>
+        <button @click.prevent="sortMoviesByDurationDesc">Sort by duration (descending)</button>
+        <hr>
         <div v-if="filteredMovies.length">
             <ul v-for="movie in filteredMovies" :key="movie.id">
                 <li v-if="movie.selected===true">
@@ -77,6 +82,18 @@ export default {
         }, 
         deselectAllMovies() {
             this.movies.map(movie => movie.selected = false);
+        }, 
+        sortMoviesByName() {
+            this.movies.sort((a, b) => (a.title > b.title) ? 1 : -1);
+        },
+        sortMoviesByNameDesc() {
+            this.movies.sort((a, b) => (a.title < b.title) ? 1 : -1);
+        },
+        sortMoviesByDuration() {
+            this.movies.sort((a, b) => (a.duration - b.duration >= 0) ? 1 : -1);
+        },
+        sortMoviesByDurationDesc() {
+            this.movies.sort((a, b) => (a.duration - b.duration < 0) ? 1 : -1);
         }
     }, 
     computed: {
