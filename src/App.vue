@@ -8,13 +8,11 @@
 
 <script>
 import NavBar from './layout/NavBar.vue';
-import AppMovies from './components/AppMovies.vue';
 
 export default {
   name: 'app',
   components: {
-    NavBar, 
-    AppMovies
+    NavBar
   }
 }
 </script>

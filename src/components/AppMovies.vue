@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <ul v-for="movie in movies" :key="movie.id">
+    <div class="container">
+        <app-movie-search @searchResult="searchFilter($event)"/>
+        <ul v-for="movie in filteredMovies" :key="movie.id">
             <li>
                 <app-movie-row :movie="movie"/>
             </li>
@@ -11,10 +12,12 @@
 <script>
 import { moviesService } from '../services/MoviesService.js';
 import AppMovieRow from './AppMovieRow.vue';
+import AppMovieSearch from './AppMovieSearch.vue';
 
 export default {
     components: {
-        AppMovieRow
+        AppMovieRow,
+        AppMovieSearch
     },
     data() {
         return {
@@ -26,19 +29,28 @@ export default {
                 releaseDate: "",
                 genre: "",
                 duration: ""
-            }
+            }, 
+            search: ""
         }
     },
     beforeRouteEnter (to, from, next) {
-        // called before the route that renders this component is confirmed.
-        // does NOT have access to `this` component instance,
-        // because it has not been created yet when this guard is called!
         moviesService.getAll()
         .then((response) => {
             next((vm) => {
             vm.movies = response.data
             })
         })
+    }, 
+    methods: {
+        searchFilter(event) {
+            this.search = event;
+            this.filteredMovies;
+        }
+    }, 
+    computed: {
+        filteredMovies() {
+            return this.movies.filter(movie => movie.title.match(this.search));
+        }
     }
 }
 </script>
