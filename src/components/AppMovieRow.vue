@@ -11,13 +11,11 @@
 </template>
 
 <script>
-import { moviesService } from '../services/MoviesService.js';
-
-export default {
-    props: {
-        movie: {
-            type: Object
+    export default {
+        props: {
+            movie: {
+                type: Object
+            }
         }
     }
-}
 </script>
