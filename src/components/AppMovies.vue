@@ -1,11 +1,14 @@
 <template>
     <div class="container">
         <app-movie-search @searchResult="searchFilter($event)"/>
-        <ul v-for="movie in filteredMovies" :key="movie.id">
-            <li>
-                <app-movie-row :movie="movie"/>
-            </li>
-        </ul>   
+        <div v-if="filteredMovies.length">
+            <ul v-for="movie in filteredMovies" :key="movie.id">
+                <li>
+                    <app-movie-row :movie="movie"/>
+                </li>
+            </ul>
+        </div>   
+        <div v-else>There are no movies that match your search. :(</div>
     </div>
 </template>
 
@@ -49,6 +52,9 @@ export default {
     }, 
     computed: {
         filteredMovies() {
+            if (!this.movies.filter(movie => movie.title.match(this.search))) {
+                return undefined;
+            }
             return this.movies.filter(movie => movie.title.match(this.search));
         }
     }
